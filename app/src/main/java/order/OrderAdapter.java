@@ -38,8 +38,8 @@ public class OrderAdapter extends ArrayAdapter<order.Order> {
             v = vi.inflate(Resource, null);
             //holder.imageview = (ImageView) v.findViewById(R.id.ivImage);
             //   holder.itemid = (TextView) v.findViewById(R.id.itemid);
-            holder.itemavailability = (TextView) v.findViewById(R.id.customername);
-            holder.itemname = (TextView) v.findViewById(R.id.customerphone);
+            holder.itemavailability = (TextView) v.findViewById(R.id.customer_name);
+            holder.itemname = (TextView) v.findViewById(R.id.customer_phone);
           //  holder.itemprice = (TextView) v.findViewById(R.id.itemprice);
             v.setTag(holder);
         } else {

@@ -54,9 +54,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-                ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-                postParameters.add(new BasicNameValuePair("username", un.getText().toString()));
-                postParameters.add(new BasicNameValuePair("password", pw.getText().toString()));
+//                ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+//                postParameters.add(new BasicNameValuePair("username", un.getText().toString()));
+//                postParameters.add(new BasicNameValuePair("password", pw.getText().toString()));
 
                 String response = null;
                 try {
@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     //      new JSONAsyncTask().execute("http://10.239.54.7:3000/v1/vendor/order/summary/x@gmail.com");
                     //   new JSONAsyncTask().execute("http://10.239.54.7:3000/v1/m/login", un.getText().toString(),pw.getText().toString());
-                    new JSONAsyncTask().execute("http://oota.herokuapp.com/v1/m/login", un.getText().toString(),pw.getText().toString());
+                    new JSONAsyncTask().execute("http://oota.herokuapp.com/v1/m/login", "abcdef@gmail.com","qwerty");
 //                    response = CustomHttpClient.executeHttpGet("http://oota.herokuapp.com/v1/vendor/city?Chennai");
 //                    String res=response.toString();
 //                    res= res.replaceAll("\\s+","");

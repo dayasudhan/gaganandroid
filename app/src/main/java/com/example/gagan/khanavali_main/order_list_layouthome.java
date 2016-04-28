@@ -53,13 +53,13 @@ public class order_list_layouthome extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootview=inflater.inflate(R.layout.order_list,container,false);
-        listView = (ListView) rootview.findViewById(R.id.order_list2);
+        rootview=inflater.inflate(R.layout.new_order_list,container,false);
+        listView = (ListView) rootview.findViewById(R.id.listView_vendor);
         orderList = new ArrayList<Order>();
         pref = getActivity().getSharedPreferences("Khaanavali", 0);
         vendor_email = pref.getString("email","name");
         bindView();
-        adapter = new OrderAdapter(getActivity().getApplicationContext(), R.layout.order_list_row, orderList);
+        adapter = new OrderAdapter(getActivity().getApplicationContext(), R.layout.new_order_list_item, orderList);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
