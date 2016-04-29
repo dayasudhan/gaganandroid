@@ -2,6 +2,7 @@ package com.example.gagan.khanavali_main;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ParseException;
 import android.os.AsyncTask;
@@ -14,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -67,7 +70,13 @@ public class order_list_layouthome extends Fragment {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position,
                                     long id) {
                 // TODO Auto-generated method stub
-                Toast.makeText(getActivity().getApplicationContext(), orderList.get(position).getCustomer().getName(), Toast.LENGTH_LONG).show();
+                //          Toast.makeText(getActivity().getApplicationContext(), orderList.get(position).getCustomer().getName(), Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(), orderDetail.class);
+                Gson gson = new Gson();
+                String order = gson.toJson(orderList.get(position));
+                intent.putExtra("order", order);
+
+                startActivity(intent);
             }
         });
         return rootview;
@@ -132,9 +141,27 @@ public class order_list_layouthome extends Fragment {
                                 int phone = custObj.getInt(TAG_PHONE);
                                 cus.setPhone(Integer.toString(phone));
                             }
-                            ordr.setCustomer(cus);
-                            orderList.add(ordr);
+                            if (custObj.has(TAG_ADDRESS)) {
+                                JSONObject addrObj = custObj.getJSONObject(TAG_ADDRESS);
+                                Address address = new Address();
+                                address.setAddressLine1(addrObj.getString("addressLine1"));
+                                address.setAddressLine2(addrObj.getString("addressLine2"));
+                                address.setAreaName(addrObj.getString("areaName"));
+                                address.setCity(addrObj.getString("city"));
+                                address.setLandMark(addrObj.getString("LandMark"));
+                                address.setStreet(addrObj.getString("street"));
+                                address.setZip(addrObj.getString("zip"));
+                                cus.setAddress(address);
+                            }
+
+
                         }
+                        if(object.has(TAG_CURRENT_STATUS))
+                        {
+                            ordr.setCurrent_status(object.getString(TAG_CURRENT_STATUS));
+                        }
+                        ordr.setCustomer(cus);
+                        orderList.add(ordr);
                     }
                     return true;
                 }
