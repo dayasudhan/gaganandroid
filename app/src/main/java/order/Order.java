@@ -10,6 +10,16 @@ public class Order {
     Customer customer;
     String current_status;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    String id;
+
     public ArrayList<MenuItem> getMenuItems() {
         return menuItems;
     }
@@ -20,19 +30,15 @@ public class Order {
 
     ArrayList<MenuItem> menuItems;
 
-
-
-    public Tracker getTracker() {
-        return tracker;
+    public ArrayList<Tracker> getTrackerDetail() {
+        return trackerDetail;
     }
 
-    public void setTracker(Tracker tracker) {
-        this.tracker = tracker;
+    public void setTrackerDetail(ArrayList<Tracker> trackerDetail) {
+        this.trackerDetail = trackerDetail;
     }
 
-
-    Tracker tracker;
-
+    ArrayList<Tracker> trackerDetail;
     public Customer getCustomer() {
         return customer;
     }

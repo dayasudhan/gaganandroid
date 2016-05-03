@@ -144,27 +144,38 @@ public class order_list_layouthome extends Fragment {
                             if (custObj.has(TAG_ADDRESS)) {
                                 JSONObject addrObj = custObj.getJSONObject(TAG_ADDRESS);
                                 Address address = new Address();
-                                address.setAddressLine1(addrObj.getString("addressLine1"));
-                                address.setAddressLine2(addrObj.getString("addressLine2"));
-                                address.setAreaName(addrObj.getString("areaName"));
-                                address.setCity(addrObj.getString("city"));
-                                address.setLandMark(addrObj.getString("LandMark"));
-                                address.setStreet(addrObj.getString("street"));
-                                address.setZip(addrObj.getString("zip"));
+                                if(addrObj.has("addressLine1"))
+                                    address.setAddressLine1(addrObj.getString("addressLine1"));
+                                if(addrObj.has("addressLine2"))
+                                    address.setAddressLine2(addrObj.getString("addressLine2"));
+                                if(addrObj.has("areaName"))
+                                    address.setAreaName(addrObj.getString("areaName"));
+                                if(addrObj.has("city"))
+                                    address.setCity(addrObj.getString("city"));
+                                if(addrObj.has("LandMark"))
+                                    address.setLandMark(addrObj.getString("LandMark"));
+                                if(addrObj.has("street"))
+                                    address.setStreet(addrObj.getString("street"));
+                                if(addrObj.has("street"))
+                                    address.setZip(addrObj.getString("street"));
                                 cus.setAddress(address);
                             }
+                        }
+                        ordr.setCustomer(cus);
 
-
+                        if(object.has(TAG_ID))
+                        {
+                            ordr.setId(object.getString(TAG_ID));
                         }
                         if(object.has(TAG_CURRENT_STATUS))
                         {
                             ordr.setCurrent_status(object.getString(TAG_CURRENT_STATUS));
                         }
-                        ArrayList<MenuItem> MenuItemList = new  ArrayList<MenuItem>();
+
                         if(object.has(TAG_MENU))
                         {
+                            ArrayList<MenuItem> MenuItemList = new  ArrayList<MenuItem>();
                             JSONArray menuarr =  object.getJSONArray(TAG_MENU);
-
                             for (int j = 0; j < menuarr.length(); j++) {
                                 JSONObject menuobject = menuarr.getJSONObject(j);
                                 MenuItem menu = new MenuItem();
@@ -172,10 +183,28 @@ public class order_list_layouthome extends Fragment {
                                 menu.setNo_of_order(menuobject.getString("no_of_order"));
                                 MenuItemList.add(menu);
                             }
-
+                            ordr.setMenuItems(MenuItemList);
                         }
-                        ordr.setMenuItems(MenuItemList);
-                        ordr.setCustomer(cus);
+
+
+
+                        if(object.has(TAG_TRACKER))
+                        {
+                            ArrayList<Tracker> trackerDetails = new  ArrayList<Tracker>();
+                            JSONArray trackerarr =  object.getJSONArray(TAG_TRACKER);
+                            for (int j = 0; j < trackerarr.length(); j++) {
+                                JSONObject trackerobject = trackerarr.getJSONObject(j);
+                                Tracker tracker = new Tracker();
+                                tracker.setStatus(trackerobject.getString("status"));
+                                tracker.setTime(trackerobject.getString("time"));
+                                if(trackerobject.has("reason"))
+                                {
+                                    tracker.setReason(trackerobject.getString("reason"));
+                                }
+                                trackerDetails.add(tracker);
+                            }
+                            ordr.setTrackerDetail(trackerDetails);
+                        }
                         orderList.add(ordr);
                     }
                     return true;

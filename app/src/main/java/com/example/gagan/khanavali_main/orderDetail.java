@@ -40,11 +40,15 @@ public class orderDetail extends AppCompatActivity {
         TextView txtViewName = (TextView) findViewById(R.id.customer_name_value);
         TextView txtViewPhone = (TextView) findViewById(R.id.customer_contact_value);
         TextView txtViewAddress = (TextView) findViewById(R.id.address_value);
-//        TextView txtViewStatus = (TextView) findViewById(R.id.order_status);
+        TextView txtViewStatus = (TextView) findViewById(R.id.current_status_value);
         TextView txtViewMenu = (TextView) findViewById(R.id.items_value);
+        TextView txtViewTracker = (TextView) findViewById(R.id.status_tracker_value);
+        TextView txtViewid = (TextView) findViewById(R.id.order_id_value);
 
         txtViewName.setText(order.getCustomer().getName());
         txtViewPhone.setText(order.getCustomer().getPhone());
+        txtViewid.setText(order.getId());
+        txtViewStatus.setText(order.getCurrent_status());
 
         String CustomerAddress = order.getCustomer().getAddress().getAddressLine1()
                 + "\n" +order.getCustomer().getAddress().getAddressLine2()
@@ -55,13 +59,20 @@ public class orderDetail extends AppCompatActivity {
         txtViewAddress.setText(CustomerAddress);
 
         ArrayList<order.MenuItem> items = order.getMenuItems();
-//        txtViewStatus.setText(order.getCurrent_status());
         String MenuItemStr = "";
         for(int j = 0 ; j < items.size() ; j++)
         {
             MenuItemStr += items.get(j).getName() + " (" + items.get(j).getNo_of_order() + ")" + '\n';
         }
         txtViewMenu.setText(MenuItemStr);
+
+        ArrayList<order.Tracker> trackeritems = order.getTrackerDetail();
+        String trackerItemStr = "";
+        for(int j = 0 ; j < trackeritems.size() ; j++)
+        {
+            trackerItemStr += trackeritems.get(j).getStatus()+ " (" + trackeritems.get(j).getTime() + ")" + '\n';
+        }
+        txtViewTracker.setText(trackerItemStr);
 
 
     }
