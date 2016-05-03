@@ -9,6 +9,11 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 import order.Order;
 import order.orderDetailsAdapter;
 
@@ -18,18 +23,25 @@ public class orderDetail extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_detail);
+        setContentView(R.layout.activity_customer_order_detail);
         Intent i = getIntent();
         // Order order = (Order)i.getSerializableExtra("order");
 
         Gson gson = new Gson();
+      //  Order order;
         Order order = gson.fromJson(i.getStringExtra("order"), Order.class);
-        adapter = new orderDetailsAdapter(getApplicationContext(), R.layout.activity_order_detail, order);
-        TextView txtViewName = (TextView) findViewById(R.id.ord_customer_name);
-        TextView txtViewPhone = (TextView) findViewById(R.id.ord_customer_phone);
-        TextView txtViewAddress = (TextView) findViewById(R.id.customer_address);
-        TextView txtViewStatus = (TextView) findViewById(R.id.order_status);
-        TextView txtViewMenu = (TextView) findViewById(R.id.menu_order);
+//        JSONObject object = null;
+//        try {
+//             object = new JSONObject(i.getStringExtra("order"));
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+        adapter = new orderDetailsAdapter(getApplicationContext(), R.layout.activity_customer_order_detail, order);
+        TextView txtViewName = (TextView) findViewById(R.id.customer_name_value);
+        TextView txtViewPhone = (TextView) findViewById(R.id.customer_contact_value);
+        TextView txtViewAddress = (TextView) findViewById(R.id.address_value);
+//        TextView txtViewStatus = (TextView) findViewById(R.id.order_status);
+        TextView txtViewMenu = (TextView) findViewById(R.id.items_value);
 
         txtViewName.setText(order.getCustomer().getName());
         txtViewPhone.setText(order.getCustomer().getPhone());
@@ -41,8 +53,15 @@ public class orderDetail extends AppCompatActivity {
                 + "\n" +order.getCustomer().getAddress().getCity()
                 + "\n" +order.getCustomer().getAddress().getLandMark();
         txtViewAddress.setText(CustomerAddress);
-        txtViewStatus.setText(order.getCurrent_status());
-//        txtViewMenu.setText(order.getCustomer().getName());
+
+        ArrayList<order.MenuItem> items = order.getMenuItems();
+//        txtViewStatus.setText(order.getCurrent_status());
+        String MenuItemStr = "";
+        for(int j = 0 ; j < items.size() ; j++)
+        {
+            MenuItemStr += items.get(j).getName() + " (" + items.get(j).getNo_of_order() + ")" + '\n';
+        }
+        txtViewMenu.setText(MenuItemStr);
 
 
     }

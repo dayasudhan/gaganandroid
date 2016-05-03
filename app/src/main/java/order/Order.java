@@ -1,5 +1,7 @@
 package order;
 
+import java.util.ArrayList;
+
 /**
  * Created by dganeshappa on 11/10/2015.
  */
@@ -7,13 +9,18 @@ package order;
 public class Order {
     Customer customer;
     String current_status;
-    public Menu getMenu() {
-        return menu;
+
+    public ArrayList<MenuItem> getMenuItems() {
+        return menuItems;
     }
 
-    public void setMenu(Menu menu) {
-        this.menu = menu;
+    public void setMenuItems(ArrayList<MenuItem> menuItems) {
+        this.menuItems = menuItems;
     }
+
+    ArrayList<MenuItem> menuItems;
+
+
 
     public Tracker getTracker() {
         return tracker;
@@ -23,7 +30,7 @@ public class Order {
         this.tracker = tracker;
     }
 
-    Menu menu;
+
     Tracker tracker;
 
     public Customer getCustomer() {

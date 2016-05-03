@@ -45,12 +45,13 @@ public class order_list_layouthome extends Fragment {
     private static final String TAG_PHONE = "phone";
     private static final String TAG_TRACKER = "tracker";
     private static final String TAG_CURRENT_STATUS = "current_status";
+    private static final String TAG_MENU = "menu";
 
     SharedPreferences pref;
     ArrayList<Order> orderList;
     String vendor_email;
     OrderAdapter adapter;
-
+    JSONArray orderJarray;
     View rootview;
     ListView listView;
     @Nullable
@@ -126,7 +127,6 @@ public class order_list_layouthome extends Fragment {
 
                     String data = EntityUtils.toString(entity);
                     JSONArray jarray = new JSONArray(data);
-
                     for (int i = 0; i < jarray.length(); i++) {
                         JSONObject object = jarray.getJSONObject(i);
 
@@ -160,6 +160,21 @@ public class order_list_layouthome extends Fragment {
                         {
                             ordr.setCurrent_status(object.getString(TAG_CURRENT_STATUS));
                         }
+                        ArrayList<MenuItem> MenuItemList = new  ArrayList<MenuItem>();
+                        if(object.has(TAG_MENU))
+                        {
+                            JSONArray menuarr =  object.getJSONArray(TAG_MENU);
+
+                            for (int j = 0; j < menuarr.length(); j++) {
+                                JSONObject menuobject = menuarr.getJSONObject(j);
+                                MenuItem menu = new MenuItem();
+                                menu.setName(menuobject.getString("name"));
+                                menu.setNo_of_order(menuobject.getString("no_of_order"));
+                                MenuItemList.add(menu);
+                            }
+
+                        }
+                        ordr.setMenuItems(MenuItemList);
                         ordr.setCustomer(cus);
                         orderList.add(ordr);
                     }
