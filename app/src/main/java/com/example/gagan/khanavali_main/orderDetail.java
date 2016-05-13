@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -44,7 +46,7 @@ public class orderDetail extends AppCompatActivity {
         TextView txtViewMenu = (TextView) findViewById(R.id.items_value);
         TextView txtViewTracker = (TextView) findViewById(R.id.status_tracker_value);
         TextView txtViewid = (TextView) findViewById(R.id.order_id_value);
-
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
         txtViewName.setText(order.getCustomer().getName());
         txtViewPhone.setText(order.getCustomer().getPhone());
         txtViewid.setText(order.getId());
@@ -74,7 +76,10 @@ public class orderDetail extends AppCompatActivity {
         }
         txtViewTracker.setText(trackerItemStr);
 
-
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.status_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

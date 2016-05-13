@@ -1,37 +1,41 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+<RelativeLayout
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:background="@color/background_color"
     android:paddingTop="5dp"
     tools:context="com.designstring.thedailystore.activity.AfterPlacingOrederActivity">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Customer Order Detail"
-        android:padding="10dp"
-        android:gravity="center_horizontal|center_vertical"
-        android:id="@+id/after_order_title"
-        android:layout_alignParentTop="true"
-        android:background="@color/colorPrimary"
-        android:textColor="#ffffff"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-    />
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="60dp"-->
+        <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+        <!--android:text="Customer Order Detail"-->
+        <!--android:padding="10dp"-->
+        <!--android:gravity="center_horizontal|center_vertical"-->
+        <!--android:id="@+id/after_order_title"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:background="@color/colorPrimary"-->
+        <!--android:textColor="#ffffff"-->
+        <!--android:layout_marginLeft="5dp"-->
+        <!--android:layout_marginRight="5dp"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentRight="true"-->
+    <!--/>-->
+
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/after_order_title"
+
         android:layout_marginTop="5dp"
         android:id="@+id/order_details_lay"
-        android:paddingBottom="5dp"
-        android:layout_alignLeft="@+id/after_order_title"
-        android:layout_alignStart="@+id/after_order_title"
-        android:layout_alignRight="@+id/after_order_title"
-        android:layout_alignEnd="@+id/after_order_title">
+        android:paddingBottom="5dp">
+        <!--android:layout_alignLeft="true"-->
+        <!--android:layout_alignStart="true"-->
+        <!--android:layout_alignRight="true"-->
+        <!--android:layout_alignEnd="true">-->
 
         <TextView
             android:layout_width="wrap_content"
@@ -263,28 +267,28 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:textColor="@color/title_text_color"
-            android:text="Address comes here /n fsdfsd dfgdf dfgdfgd dfgdfg dfgd dfg"
+            android:text="status"
             android:id="@+id/status_tracker_value"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="3dp"
             android:layout_toRightOf="@+id/status_tracker_text"
             />
     </RelativeLayout>
-    <!--<RelativeLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
 
-        <!--android:layout_below="@+id/order_address_lay"-->
-        <!--android:padding="5dp"-->
-        <!--android:layout_marginTop="5dp"-->
-        <!--android:id="@+id/rate_lay"-->
-        <!--android:visibility="gone"-->
+        android:layout_below="@+id/order_status_details"
+        android:padding="5dp"
+        android:layout_marginTop="5dp"
+        android:id="@+id/rate_lay"
 
-        <!--android:layout_alignRight="@+id/order_address_lay"-->
-        <!--android:layout_alignEnd="@+id/order_address_lay"-->
-        <!--android:layout_alignLeft="@+id/order_address_lay"-->
-        <!--android:layout_alignStart="@+id/order_address_lay">-->
-        <!--android:layout_alignStart="@+id/order_address_lay">-->
+
+        android:layout_alignRight="@+id/order_status_details"
+        android:layout_alignEnd="@+id/order_status_details"
+        android:layout_alignLeft="@+id/order_status_details"
+        android:layout_alignStart="@+id/order_status_details">
+        android:layout_alignStart="@+id/order_status_details">
         <!--<RatingBar-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
@@ -294,17 +298,26 @@
             <!--android:layout_alignParentLeft="true"-->
             <!--android:layout_alignParentStart="true" />-->
 
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textSize="16sp"-->
-            <!--android:textColor="@color/text_view_grey"-->
-            <!--android:text="Rate Vendor"-->
-            <!--android:id="@+id/rate_vendor_text"-->
-            <!--android:layout_alignParentTop="true"-->
-            <!--android:layout_alignParentLeft="true"-->
-            <!--android:layout_alignParentStart="true" />-->
-    <!--</RelativeLayout>-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/text_purple"
+            android:text="Rate Vendor"
+            android:id="@+id/rate_vendor_text"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="3dp"
+            android:layout_toRightOf="@+id/rate_vendor_text"/>
+
+    </RelativeLayout>
+
 
     <!--<Button-->
         <!--android:layout_width="wrap_content"-->
@@ -330,3 +343,4 @@
         <!--android:layout_centerHorizontal="true"-->
         <!--android:layout_marginTop="90dp" />-->
 </RelativeLayout>
+</ScrollView>
