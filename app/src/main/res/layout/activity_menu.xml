@@ -36,15 +36,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textColor="@color/text_purple"
             android:text="Menu Add"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
             android:id="@+id/menu_add_text"
             android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            />
+            android:layout_alignLeft="@+id/addMenuItemButton"
+            android:layout_alignStart="@+id/addMenuItemButton"
+
+            android:focusable="false" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -52,7 +52,8 @@
             android:text="Item Name"
             android:id="@+id/Menu_Item_Name"
             android:textSize="16sp"
-            android:textColor="@color/title_text_color"
+            android:layout_marginTop="15dp"
+            android:textColor="#166CED"
             android:layout_marginLeft="3dp"
             android:layout_below="@+id/menu_add_text"/>
 
@@ -74,7 +75,8 @@
             android:text="Item Price"
             android:id="@+id/Menu_Item_price"
             android:textSize="16sp"
-            android:textColor="@color/title_text_color"
+            android:layout_marginTop="15dp"
+            android:textColor="#166CED"
             android:layout_marginLeft="20dp"
             android:layout_below="@+id/menu_add_text"
             android:layout_toRightOf="@+id/editItemName"
@@ -93,18 +95,23 @@
             android:layout_marginLeft="3dp"
             android:layout_toEndOf="@+id/Menu_Item_price"
 
+
             />
 
         <Button
-            style="?android:attr/buttonStyleSmall"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:text="Add Item"
             android:id="@+id/addMenuItemButton"
             android:gravity="center_horizontal|center_vertical"
             android:layout_below="@+id/editItemName"
             android:layout_centerInParent="true"
+            android:background="#166CED"
+            android:textAppearance="?android:attr/textAppearanceSmall"
              />
+
 
     </RelativeLayout>
         <RelativeLayout

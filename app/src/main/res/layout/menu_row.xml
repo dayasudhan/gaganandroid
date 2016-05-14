@@ -52,6 +52,8 @@
             android:layout_height="wrap_content"
             android:text="Delete"
             android:id="@+id/delete_menu_Item_button"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
 
             />
 

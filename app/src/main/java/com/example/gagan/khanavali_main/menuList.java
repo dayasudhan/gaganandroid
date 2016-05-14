@@ -63,7 +63,7 @@ public class menuList extends Fragment {
         vendor_email = pref.getString("email", "name");
 
         bindView();
-        adapter = new MenuAdapter(getActivity().getApplicationContext(), R.layout.menu_row, menuList,vendor_email);
+        adapter = new MenuAdapter(getActivity().getApplicationContext(), R.layout.menu_row2 ,menuList,vendor_email);
 
         listView.setAdapter(adapter);
 //        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

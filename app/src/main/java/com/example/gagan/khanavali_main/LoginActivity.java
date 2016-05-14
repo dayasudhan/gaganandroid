@@ -58,21 +58,21 @@ public class LoginActivity extends AppCompatActivity {
 //                ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
 //                postParameters.add(new BasicNameValuePair("username", un.getText().toString()));
 //                postParameters.add(new BasicNameValuePair("password", pw.getText().toString()));
-                if (un.getText().toString().matches("")) {
-                    Toast.makeText(getApplicationContext(), "You did not enter a username", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (pw.getText().toString().matches("")) {
-                    Toast.makeText(getApplicationContext(), "You did not enter a password", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+//                if (un.getText().toString().matches("")) {
+//                    Toast.makeText(getApplicationContext(), "You did not enter a username", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                if (pw.getText().toString().matches("")) {
+//                    Toast.makeText(getApplicationContext(), "You did not enter a password", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
                 String response = null;
                 try {
 
 
                     //      new JSONAsyncTask().execute("http://10.239.54.7:3000/v1/vendor/order/summary/x@gmail.com");
-                       new JSONAsyncTask().execute("http://10.239.54.7:3000/v1/m/login", un.getText().toString(),pw.getText().toString());
-//                    new JSONAsyncTask().execute("http://oota.herokuapp.com/v1/m/login", "abcdef@gmail.com","qwerty");
+//                       new JSONAsyncTask().execute("http://10.239.54.7:3000/v1/m/login", un.getText().toString(),pw.getText().toString());
+                    new JSONAsyncTask().execute("http://oota.herokuapp.com/v1/m/login", "abcdef@gmail.com","qwerty");
 //                    response = CustomHttpClient.executeHttpGet("http://oota.herokuapp.com/v1/vendor/city?Chennai");
 //                    String res=response.toString();
 //                    res= res.replaceAll("\\s+","");
