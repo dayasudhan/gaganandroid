@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Are you Sure you want to login?"
+        android:id="@+id/textView5"
+        android:layout_gravity="center_horizontal" />
+
+
+
+    <!-- Button to show session data -->
+    <Button android:id="@+id/btnLogout"
+        android:layout_width="204dp"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:clickable="true"
+        android:elegantTextHeight="false"
+        android:focusable="true"
+        android:enabled="true"
+        android:focusableInTouchMode="true" />
+
+</LinearLayout>
