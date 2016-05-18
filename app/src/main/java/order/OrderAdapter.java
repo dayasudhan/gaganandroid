@@ -9,7 +9,11 @@ import android.widget.TextView;
 
 import com.example.gagan.khanavali_main.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by dganeshappa on 11/11/2015.
@@ -40,7 +44,7 @@ public class OrderAdapter extends ArrayAdapter<order.Order> {
             //   holder.itemid = (TextView) v.findViewById(R.id.itemid);
             holder.itemavailability = (TextView) v.findViewById(R.id.customer_name);
             holder.itemname = (TextView) v.findViewById(R.id.customer_phone);
-          //  holder.itemprice = (TextView) v.findViewById(R.id.itemprice);
+            holder.itemTime = (TextView) v.findViewById(R.id.datetime_list);
             v.setTag(holder);
         } else {
             holder = (ViewHolder) v.getTag();
@@ -50,7 +54,23 @@ public class OrderAdapter extends ArrayAdapter<order.Order> {
         holder.itemname.setText(orderList.get(position).getCustomer().getName());
         //   holder.itemid.setText(customerList.get(position).getid());
         holder.itemavailability.setText(orderList.get(position).getCustomer().getPhone());
-    //    holder.itemprice.setText(orderList.get(position).getPrice());
+
+
+        SimpleDateFormat existingUTCFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        SimpleDateFormat requiredFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date getDate = null;
+        try {
+            getDate = existingUTCFormat.parse(orderList.get(position).getTrackerDetail().get(0).getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(getDate);
+        cal.add(Calendar.HOUR, 5);
+        cal.add(Calendar.MINUTE, 30);
+        String newTime = requiredFormat.format(cal.getTime());
+
+        holder.itemTime.setText(newTime);
         return v;
 
     }
@@ -60,7 +80,7 @@ public class OrderAdapter extends ArrayAdapter<order.Order> {
         public TextView itemname;
         public TextView itemprice;
         public TextView itemavailability;
-        public TextView itemid;
+        public TextView itemTime;
     }
 
    /* private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {

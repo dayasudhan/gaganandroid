@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -54,14 +55,16 @@ public class order_list_layouthome extends Fragment {
     JSONArray orderJarray;
     View rootview;
     ListView listView;
+    Button refreshButton ;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview=inflater.inflate(R.layout.new_order_list,container,false);
         listView = (ListView) rootview.findViewById(R.id.listView_vendor);
+        refreshButton = (Button) rootview.findViewById(R.id.refresh_button);
         orderList = new ArrayList<Order>();
         pref = getActivity().getSharedPreferences("Khaanavali", 0);
-        vendor_email = pref.getString("email","name");
+        vendor_email = pref.getString("email", "name");
         bindView();
         adapter = new OrderAdapter(getActivity().getApplicationContext(), R.layout.new_order_list_item, orderList);
         listView.setAdapter(adapter);
@@ -80,10 +83,17 @@ public class order_list_layouthome extends Fragment {
                 startActivity(intent);
             }
         });
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+                bindView();
+            }
+        });
         return rootview;
     }
     public void bindView() {
 
+        orderList.clear();
         String order_url = "http://oota.herokuapp.com/v1/vendor/order/";
         order_url= order_url.concat(vendor_email);
         new JSONAsyncTask(getActivity(),listView).execute(order_url);
@@ -127,7 +137,7 @@ public class order_list_layouthome extends Fragment {
 
                     String data = EntityUtils.toString(entity);
                     JSONArray jarray = new JSONArray(data);
-                    for (int i = 0; i < jarray.length(); i++) {
+                    for (int i = jarray.length() - 1 ; i >= 0; i--) {
                         JSONObject object = jarray.getJSONObject(i);
 
                         Order ordr = new Order();

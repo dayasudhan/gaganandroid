@@ -1,44 +1,72 @@
 package com.example.gagan.khanavali_main;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 import com.google.gson.Gson;
+import android.widget.AdapterView.OnItemSelectedListener;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 import order.Order;
-import order.orderDetailsAdapter;
+//import order.orderDetailsAdapter;
 
-public class orderDetail extends AppCompatActivity {
-
-    orderDetailsAdapter adapter;
+public class orderDetail extends AppCompatActivity implements OnItemSelectedListener{
+    SharedPreferences pref;
+    String vendor_email;
+    Order order;
+ //   orderDetailsAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_order_detail);
         Intent i = getIntent();
         // Order order = (Order)i.getSerializableExtra("order");
-
+        pref = getSharedPreferences("Khaanavali", 0);
+        vendor_email = pref.getString("email", "name");
         Gson gson = new Gson();
       //  Order order;
-        Order order = gson.fromJson(i.getStringExtra("order"), Order.class);
+        order = gson.fromJson(i.getStringExtra("order"), Order.class);
 //        JSONObject object = null;
 //        try {
 //             object = new JSONObject(i.getStringExtra("order"));
 //        } catch (JSONException e) {
 //            e.printStackTrace();
 //        }
-        adapter = new orderDetailsAdapter(getApplicationContext(), R.layout.activity_customer_order_detail, order);
+      //  adapter = new orderDetailsAdapter(getApplicationContext(), R.layout.activity_customer_order_detail, order);
         TextView txtViewName = (TextView) findViewById(R.id.customer_name_value);
         TextView txtViewPhone = (TextView) findViewById(R.id.customer_contact_value);
         TextView txtViewAddress = (TextView) findViewById(R.id.address_value);
@@ -72,14 +100,30 @@ public class orderDetail extends AppCompatActivity {
         String trackerItemStr = "";
         for(int j = 0 ; j < trackeritems.size() ; j++)
         {
-            trackerItemStr += trackeritems.get(j).getStatus()+ " (" + trackeritems.get(j).getTime() + ")" + '\n';
+            SimpleDateFormat existingUTCFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+            SimpleDateFormat requiredFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date getDate = null;
+            try {
+                getDate = existingUTCFormat.parse(trackeritems.get(j).getTime());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(getDate);
+            cal.add(Calendar.HOUR, 5);
+            cal.add(Calendar.MINUTE, 30);
+            String newTime = requiredFormat.format(cal.getTime());
+            trackerItemStr += trackeritems.get(j).getStatus()+ " (" + newTime + ")" + '\n';
         }
         txtViewTracker.setText(trackerItemStr);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.status_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        spinner.setAdapter(adapter);  // Spinner click listener
+        spinner.setOnItemSelectedListener(this);
+
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -89,17 +133,88 @@ public class orderDetail extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String item = parent.getItemAtPosition(position).toString();
+        if(position !=0) {
+            updateStatusTracker(item, "ok");
+        }
+    }
+    public void onNothingSelected(AdapterView<?> arg0) {
+        // TODO Auto-generated method stub
+    }
+    public void updateStatusTracker(String status,String reason)
+    {
+      //  String order_url = "http://10.239.54.58:3000/v1/vendor/order/status/";
+        String order_url = "http://oota.herokuapp.com/v1/vendor/order/status/";
+        order_url= order_url.concat(order.getId());
+        new AddJSONAsyncTask().execute(order_url,status,reason);
+    }
+    public  class AddJSONAsyncTask extends AsyncTask<String, Void, Boolean> {
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        ProgressDialog dialog;
+
+        public  AddJSONAsyncTask()
+        {
+
         }
 
-        return super.onOptionsItemSelected(item);
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog = new ProgressDialog(orderDetail.this);
+            dialog.setMessage("Adding Item, please wait");
+            dialog.setTitle("Connecting server");
+            dialog.show();
+            dialog.setCancelable(false);
+        }
+
+        @Override
+        protected Boolean doInBackground(String... urls) {
+            try {
+                String json = "";
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("status", urls[1]);
+                    jsonObject.put("reason", urls[2]);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                json = jsonObject.toString();
+                StringEntity se = new StringEntity(json);
+
+                HttpPut request = new HttpPut(urls[0]);
+                HttpClient httpclient = new DefaultHttpClient();
+                        request.setEntity(se);
+                request.setHeader("Accept", "application/json");
+                request.setHeader("Content-type", "application/json");
+                HttpResponse response = httpclient.execute(request);
+
+                int status = response.getStatusLine().getStatusCode();
+
+                if (status == 200) {
+                    HttpEntity entity = response.getEntity();
+                    String data = EntityUtils.toString(entity);
+                    return true;
+                }
+
+                //------------------>>
+
+            } catch (android.net.ParseException e1) {
+                e1.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return false;
+        }
+
+        protected void onPostExecute(Boolean result) {
+            dialog.cancel();
+            // adapter.notifyDataSetChanged();
+
+            if (result == false)
+                Toast.makeText(getApplicationContext(), "Unable to fetch data from server", Toast.LENGTH_LONG).show();
+
+        }
     }
 }

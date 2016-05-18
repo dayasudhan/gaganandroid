@@ -37,9 +37,9 @@ public class orderDetailsAdapter extends ArrayAdapter<Order> {
             v = vi.inflate(Resource, null);
             //holder.imageview = (ImageView) v.findViewById(R.id.ivImage);
             //   holder.itemid = (TextView) v.findViewById(R.id.itemid);
-            holder.itemavailability = (TextView) v.findViewById(R.id.ord_customer_name);
-            holder.itemname = (TextView) v.findViewById(R.id.ord_customer_phone);
-            //  holder.itemprice = (TextView) v.findViewById(R.id.itemprice);
+//            holder.itemavailability = (TextView) v.findViewById(R.id.ord_customer_name);
+//            holder.itemname = (TextView) v.findViewById(R.id.ord_customer_phone);
+//            //  holder.itemprice = (TextView) v.findViewById(R.id.itemprice);
             v.setTag(holder);
         } else {
             holder = (ViewHolder) v.getTag();
