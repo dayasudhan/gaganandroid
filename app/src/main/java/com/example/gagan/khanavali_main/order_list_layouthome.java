@@ -146,19 +146,22 @@ public class order_list_layouthome extends Fragment {
                         JSONObject object = jarray.getJSONObject(i);
 
                         Order ordr = new Order();
-                        Customer cus = new Customer();
+
                         if(object.has(TAG_CUSTOMER)) {
+                            Customer cus = new Customer();
                             JSONObject custObj = object.getJSONObject(TAG_CUSTOMER);
                             if (custObj.has(TAG_NAME)) {
                                 cus.setName(custObj.getString(TAG_NAME));
                             }
                             if (custObj.has(TAG_PHONE)) {
-                                try {
-                                    int phone = custObj.getInt(TAG_PHONE);
-                                    cus.setPhone(Integer.toString(phone));
-                                }catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+                                cus.setPhone(custObj.getString(TAG_PHONE));
+//                                try {
+//                                    int phone = custObj.getInt(TAG_PHONE);
+//                                    String phonee = custObj.getString(TAG_PHONE);
+//                                    cus.setPhone(Integer.toString(phone));
+//                                }catch (JSONException e) {
+//                                    e.printStackTrace();
+//                                }
                             }
                             if (custObj.has(TAG_ADDRESS)) {
                                 JSONObject addrObj = custObj.getJSONObject(TAG_ADDRESS);
@@ -179,8 +182,9 @@ public class order_list_layouthome extends Fragment {
                                     address.setZip(addrObj.getString("zip"));
                                 cus.setAddress(address);
                             }
+                            ordr.setCustomer(cus);
                         }
-                        ordr.setCustomer(cus);
+
 
                         if(object.has(TAG_ID))
                         {
