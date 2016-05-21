@@ -91,14 +91,16 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true" />
 
-    <Button
+
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Refresh"
         android:id="@+id/refresh_button"
         android:layout_alignBottom="@+id/viewleft"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/button_refresh_small"/>
 
 </RelativeLayout>
 

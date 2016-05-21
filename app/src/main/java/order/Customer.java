@@ -13,11 +13,11 @@ public class Customer {
     }
 
     public String getPhone() {
-        return Phone;
+        return phone;
     }
 
     public void setPhone(String phone) {
-        Phone = phone;
+        this.phone = phone;
     }
 
     public Address getAddress() {
@@ -37,7 +37,7 @@ public class Customer {
     }
 
     String name;
-    String Phone;
+    String phone;
     Address address;
     String email;
 }

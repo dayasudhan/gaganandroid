@@ -21,13 +21,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Hotel description comes here"
+        android:text="Hotel phone"
         android:id="@+id/customer_phone"
         android:layout_below="@+id/customer_name"
         android:layout_alignLeft="@+id/customer_name"
         android:textColor="#166CED"
         android:layout_marginTop="5dp"
-        android:textSize="16dp"/>
+        android:textSize="13dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -39,7 +39,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="5dp"
         android:layout_marginRight="15dp"
-        android:textSize="15dp"
+        android:textSize="10dp"
         android:textColor="#166CED"
         android:layout_alignParentEnd="true" />
     <!--<View-->

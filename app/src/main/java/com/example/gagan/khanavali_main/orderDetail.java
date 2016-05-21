@@ -74,18 +74,27 @@ public class orderDetail extends AppCompatActivity implements OnItemSelectedList
         TextView txtViewMenu = (TextView) findViewById(R.id.items_value);
         TextView txtViewTracker = (TextView) findViewById(R.id.status_tracker_value);
         TextView txtViewid = (TextView) findViewById(R.id.order_id_value);
+        TextView txtViewiBillValue = (TextView) findViewById(R.id.bill_value_value);
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         txtViewName.setText(order.getCustomer().getName());
         txtViewPhone.setText(order.getCustomer().getPhone());
         txtViewid.setText(order.getId());
         txtViewStatus.setText(order.getCurrent_status());
+        txtViewiBillValue.setText(String.valueOf(order.getTotalCost()));
 
-        String CustomerAddress = order.getCustomer().getAddress().getAddressLine1()
-                + "\n" +order.getCustomer().getAddress().getAddressLine2()
-                + "\n"+ order.getCustomer().getAddress().getAreaName()
-                +"\n"+ order.getCustomer().getAddress().getStreet()
-                + "\n" +order.getCustomer().getAddress().getCity()
-                + "\n" +order.getCustomer().getAddress().getLandMark();
+        String CustomerAddress = new String();
+        if(order.getCustomer().getAddress().getAddressLine1() != null && !order.getCustomer().getAddress().getAddressLine1().isEmpty())
+            CustomerAddress =  CustomerAddress.concat(order.getCustomer().getAddress().getAddressLine1()).concat("\n");
+        if(order.getCustomer().getAddress().getAddressLine2() != null && !order.getCustomer().getAddress().getAddressLine2().isEmpty())
+            CustomerAddress =   CustomerAddress.concat(order.getCustomer().getAddress().getAddressLine2()).concat("\n");
+        if(order.getCustomer().getAddress().getAreaName() != null && !order.getCustomer().getAddress().getAreaName().isEmpty())
+            CustomerAddress =   CustomerAddress.concat(order.getCustomer().getAddress().getAreaName()).concat("\n");
+        if(order.getCustomer().getAddress().getLandMark() != null && !order.getCustomer().getAddress().getLandMark().isEmpty())
+            CustomerAddress =   CustomerAddress.concat(order.getCustomer().getAddress().getLandMark().concat("\n"));
+        if(order.getCustomer().getAddress().getStreet() != null && !order.getCustomer().getAddress().getStreet().isEmpty())
+            CustomerAddress =   CustomerAddress.concat(order.getCustomer().getAddress().getStreet()).concat("\n");
+        if(order.getCustomer().getAddress().getCity() != null && !order.getCustomer().getAddress().getCity().isEmpty())
+            CustomerAddress =   CustomerAddress.concat(order.getCustomer().getAddress().getCity());
         txtViewAddress.setText(CustomerAddress);
 
         ArrayList<order.MenuItem> items = order.getMenuItems();
@@ -184,7 +193,7 @@ public class orderDetail extends AppCompatActivity implements OnItemSelectedList
 
                 HttpPut request = new HttpPut(urls[0]);
                 HttpClient httpclient = new DefaultHttpClient();
-                        request.setEntity(se);
+                request.setEntity(se);
                 request.setHeader("Accept", "application/json");
                 request.setHeader("Content-type", "application/json");
                 HttpResponse response = httpclient.execute(request);

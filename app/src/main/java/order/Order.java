@@ -9,6 +9,44 @@ import java.util.ArrayList;
 public class Order {
     Customer customer;
     String current_status;
+    String id;
+    ArrayList<MenuItem> menuItems;
+    ArrayList<Tracker> trackerDetail;
+    int bill_value;
+
+    public Order()
+    {
+        this.bill_value =0;
+        this.deliveryCharge = 0;
+        this.totalCost = 0;
+    }
+    public int getDeliveryCharge() {
+        return deliveryCharge;
+    }
+
+    public void setDeliveryCharge(int deliveryCharge) {
+        this.deliveryCharge = deliveryCharge;
+    }
+
+    public int getBill_value() {
+        return bill_value;
+    }
+
+    public void setBill_value(int bill_value) {
+        this.bill_value = bill_value;
+    }
+
+    public int getTotalCost() {
+        return this.totalCost;
+    }
+
+    public void setTotalCost(int totalCost) {
+        this.totalCost = totalCost;
+    }
+
+    int deliveryCharge;
+    int totalCost;
+
 
     public String getId() {
         return id;
@@ -18,7 +56,7 @@ public class Order {
         this.id = id;
     }
 
-    String id;
+
 
     public ArrayList<MenuItem> getMenuItems() {
         return menuItems;
@@ -28,7 +66,7 @@ public class Order {
         this.menuItems = menuItems;
     }
 
-    ArrayList<MenuItem> menuItems;
+
 
     public ArrayList<Tracker> getTrackerDetail() {
         return trackerDetail;
@@ -38,7 +76,7 @@ public class Order {
         this.trackerDetail = trackerDetail;
     }
 
-    ArrayList<Tracker> trackerDetail;
+
     public Customer getCustomer() {
         return customer;
     }

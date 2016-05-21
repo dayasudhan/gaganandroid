@@ -87,10 +87,10 @@
             android:textColor="@color/text_purple"
             android:text="Bill Value -"
             android:id="@+id/bill_value_text"
-            android:layout_alignBottom="@+id/order_id_value"
-            android:layout_toRightOf="@+id/order_id_value"
-            android:layout_toEndOf="@+id/order_id_value"
-            android:layout_marginLeft="20dp"
+            android:layout_below="@+id/order_id_text"
+            android:layout_alignLeft="@+id/order_id_text"
+            android:layout_alignStart="@+id/order_id_text"
+            android:layout_marginTop="10dp"
             />
 
         <TextView
@@ -112,9 +112,9 @@
             android:textColor="@color/text_purple"
             android:text="Items -"
             android:id="@+id/items_text"
-            android:layout_below="@+id/order_id_text"
-            android:layout_alignLeft="@+id/order_id_text"
-            android:layout_alignStart="@+id/order_id_text"
+            android:layout_below="@+id/bill_value_text"
+            android:layout_alignLeft="@+id/bill_value_text"
+            android:layout_alignStart="@+id/bill_value_text"
             android:layout_marginTop="10dp" />
 
         <TextView

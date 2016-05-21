@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.ImageButton;
 
 import com.google.gson.Gson;
 
@@ -47,6 +48,9 @@ public class order_list_layouthome extends Fragment {
     private static final String TAG_TRACKER = "tracker";
     private static final String TAG_CURRENT_STATUS = "current_status";
     private static final String TAG_MENU = "menu";
+    private static final String TAG_BILL_VALUE = "bill_value";
+    private static final String TAG_DELIVERY_CHARGE = "deliveryCharge";
+    private static final String TAG_TOTAL_COST = "totalCost";
 
     SharedPreferences pref;
     ArrayList<Order> orderList;
@@ -55,13 +59,14 @@ public class order_list_layouthome extends Fragment {
     JSONArray orderJarray;
     View rootview;
     ListView listView;
-    Button refreshButton ;
+   // Button refreshButton ;
+    ImageButton refreshButton;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview=inflater.inflate(R.layout.new_order_list,container,false);
         listView = (ListView) rootview.findViewById(R.id.listView_vendor);
-        refreshButton = (Button) rootview.findViewById(R.id.refresh_button);
+        refreshButton = (ImageButton) rootview.findViewById(R.id.refresh_button);
         orderList = new ArrayList<Order>();
         pref = getActivity().getSharedPreferences("Khaanavali", 0);
         vendor_email = pref.getString("email", "name");
@@ -144,12 +149,16 @@ public class order_list_layouthome extends Fragment {
                         Customer cus = new Customer();
                         if(object.has(TAG_CUSTOMER)) {
                             JSONObject custObj = object.getJSONObject(TAG_CUSTOMER);
-                            if (custObj.has(TAG_PHONE)) {
+                            if (custObj.has(TAG_NAME)) {
                                 cus.setName(custObj.getString(TAG_NAME));
                             }
                             if (custObj.has(TAG_PHONE)) {
-                                int phone = custObj.getInt(TAG_PHONE);
-                                cus.setPhone(Integer.toString(phone));
+                                try {
+                                    int phone = custObj.getInt(TAG_PHONE);
+                                    cus.setPhone(Integer.toString(phone));
+                                }catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
                             if (custObj.has(TAG_ADDRESS)) {
                                 JSONObject addrObj = custObj.getJSONObject(TAG_ADDRESS);
@@ -166,8 +175,8 @@ public class order_list_layouthome extends Fragment {
                                     address.setLandMark(addrObj.getString("LandMark"));
                                 if(addrObj.has("street"))
                                     address.setStreet(addrObj.getString("street"));
-                                if(addrObj.has("street"))
-                                    address.setZip(addrObj.getString("street"));
+                                if(addrObj.has("zip"))
+                                    address.setZip(addrObj.getString("zip"));
                                 cus.setAddress(address);
                             }
                         }
@@ -214,6 +223,30 @@ public class order_list_layouthome extends Fragment {
                                 trackerDetails.add(tracker);
                             }
                             ordr.setTrackerDetail(trackerDetails);
+                        }
+                        if (object.has(TAG_BILL_VALUE)) {
+                            try {
+                                int intValue = object.getInt(TAG_BILL_VALUE);
+                                ordr.setBill_value(intValue);
+                            }catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        if (object.has(TAG_DELIVERY_CHARGE)) {
+                            try {
+                                int intValue = object.getInt(TAG_DELIVERY_CHARGE);
+                                ordr.setDeliveryCharge(intValue);
+                            }catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        if (object.has(TAG_TOTAL_COST)) {
+                            try {
+                                int intValue = object.getInt(TAG_TOTAL_COST);
+                                ordr.setTotalCost(intValue);
+                            }catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                         orderList.add(ordr);
                     }

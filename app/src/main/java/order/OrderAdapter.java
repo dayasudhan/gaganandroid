@@ -42,8 +42,8 @@ public class OrderAdapter extends ArrayAdapter<order.Order> {
             v = vi.inflate(Resource, null);
             //holder.imageview = (ImageView) v.findViewById(R.id.ivImage);
             //   holder.itemid = (TextView) v.findViewById(R.id.itemid);
-            holder.itemavailability = (TextView) v.findViewById(R.id.customer_name);
-            holder.itemname = (TextView) v.findViewById(R.id.customer_phone);
+            holder.itemname = (TextView) v.findViewById(R.id.customer_name);
+            holder.itemphone = (TextView) v.findViewById(R.id.customer_phone);
             holder.itemTime = (TextView) v.findViewById(R.id.datetime_list);
             v.setTag(holder);
         } else {
@@ -53,7 +53,7 @@ public class OrderAdapter extends ArrayAdapter<order.Order> {
         // new DownloadImageTask(holder.imageview).execute(actorList.get(position).getImage());
         holder.itemname.setText(orderList.get(position).getCustomer().getName());
         //   holder.itemid.setText(customerList.get(position).getid());
-        holder.itemavailability.setText(orderList.get(position).getCustomer().getPhone());
+        holder.itemphone.setText(orderList.get(position).getCustomer().getPhone());
 
 
         SimpleDateFormat existingUTCFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
@@ -78,7 +78,7 @@ public class OrderAdapter extends ArrayAdapter<order.Order> {
     static class ViewHolder {
         //  public ImageView imageview;
         public TextView itemname;
-        public TextView itemprice;
+        public TextView itemphone;
         public TextView itemavailability;
         public TextView itemTime;
     }
