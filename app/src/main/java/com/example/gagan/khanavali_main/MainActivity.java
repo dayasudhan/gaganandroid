@@ -38,8 +38,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 // Session class instance
         session = new SessionManager(getApplicationContext());
-        Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
-        session.checkLogin();
+//        Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
+//        session.checkLogin();
 
         // get user data from session
         HashMap<String, String> user = session.getUserDetails();

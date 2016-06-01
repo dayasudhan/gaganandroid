@@ -214,6 +214,16 @@
             android:layout_alignBottom="@+id/customer_contact_text"
             android:layout_toRightOf="@+id/customer_contact_text"
             android:layout_toEndOf="@+id/customer_contact_text" />
+        <Button
+        android:id="@+id/buttonCall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:layout_alignBottom="@+id/customer_contact_value"
+        android:layout_toRightOf="@+id/customer_contact_value"
+        android:layout_toEndOf="@+id/customer_contact_value"
+        android:text="Call Now" />
+
     </RelativeLayout>
     <RelativeLayout
     android:layout_width="match_parent"

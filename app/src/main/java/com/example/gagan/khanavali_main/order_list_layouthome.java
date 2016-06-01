@@ -40,7 +40,7 @@ public class order_list_layouthome extends Fragment {
 
     // JSON Node names
     private static final String TAG_CUSTOMER = "customer";
-    private static final String TAG_ID = "_id";
+    private static final String TAG_ID = "id";
     private static final String TAG_NAME = "name";
     private static final String TAG_EMAIL = "email";
     private static final String TAG_ADDRESS = "address";
